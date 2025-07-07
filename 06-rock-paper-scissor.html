@@ -5,64 +5,74 @@
     </head>
     <body>
         <p>Rock Paper Scissor</p>
+
+        <!--Rock Button-->
         <button onclick="
-      const computerMove= pickComputerMove();
-        console.log(computerMove);
-
-        let result ='';
-
-        if(computerMove==='rock'){
-            result ='Tie';
-        }
-        else if( computerMove==='paper')
-        {
-            result='You lose';
-        }
-        else if(computerMove==='Scissor')
-        {
-            result='You Win';
-        }
-
-        alert(`you picked rock. computer picked ${computerMove}.${result}`);
-
+        playGame('rock');
         ">Rock</button>
-        <button onclick="
-       const computerMove= pickComputerMove();
-        console.log(computerMove);
-        let result ='';
-        if(computerMove==='rock'){
-            result ='You Win';
-        }
-        else if( computerMove==='paper')
-        {
-            result='Tie';
-        }
-        else if(computerMove==='Scissor')
-        {
-            result='You Lose';
-        }
-        alert(`you picked paper. computer picked ${computerMove}.${result}`);" 
+
+          <!--Paper Button-->
+        <button onclick="playGame('paper');" 
         >Paper</button>
+
+        <!-- scissor button-->
         <button onclick="
-        const computerMove= pickComputerMove();
-        console.log(computerMove);
-        let result ='';
-
-        if(computerMove==='rock'){
-            result ='You Lose';
-        }
-        else if( computerMove==='paper')
-        {
-            result='You Win';
-        }
-        else if(computerMove==='Scissor')
-        {
-            result='Tie';
-        }
-
-        alert(`you picked scissor. computer picked ${computerMove}.${result}`);"
+        playGame('Scissor');"
         >Scissor</button>
+        
         <script>
+            function playGame(playerMove)
+            {
+                    const computerMove= pickComputerMove();
+                    console.log(computerMove);
+                    let result ='';
+                if(playerMove==='Scissor')
+                {    
+
+                    if(computerMove==='rock'){
+                    result ='You Lose';
+                        }
+                    else if( computerMove==='paper'){
+                    result='You Win';
+                    }
+                    else if(computerMove==='Scissor'){
+                    result='Tie';
+                    }
+                }
+
+                else if(playerMove==='paper')
+                {
+                    if(computerMove==='rock'){
+                        result ='You Win';
+                    }
+                    else if( computerMove==='paper')
+                    {
+                        result='Tie';
+                    }
+                    else if(computerMove==='Scissor')
+                    {
+                        result='You Lose';
+                    }
+
+                }
+                
+                else if(playerMove==='rock')
+                {
+                    if(computerMove==='rock'){
+                        result ='Tie';
+                    }
+                    else if( computerMove==='paper')
+                    {
+                        result='You lose';
+                    }
+                    else if(computerMove==='Scissor')
+                    {
+                        result='You Win';
+                    }
+                }
+
+                alert(`you picked ${playerMove}. computer picked ${computerMove}.${result}`);
+            }
             function pickComputerMove()
             {
                 let computerMove='';
