@@ -21,14 +21,24 @@
         >Scissor</button>
 
         <!--ResetButton-->
-        <button onclick="score.wins=0;
+        <button onclick="
+        score.wins=0;
         score.losses=0;
-        score.ties=0"
-        >Reset Score</button>
+        score.ties=0;
+        localStorage.removeItem('score');
+        ">Reset Score</button>
         
         <script>
 
-            const score =JSON.parse(localStorage.getItem('score'));
+            let score =JSON.parse(localStorage.getItem('score'));
+
+            if(score===null){
+                score={
+                    wins:0,
+                    losses:0,
+                    ties:0
+                };
+            }
 
            // JSON.parse(localStorage.getItem('score'));
             function playGame(playerMove)
@@ -92,7 +102,7 @@
 
                 localStorage.setItem('score',JSON.stringify(score));
 
-                console.log(localStorage.getItem('message'));
+               // console.log(localStorage.getItem('message'));
 
                 alert(`you picked ${playerMove}. computer picked ${computerMove}.${result}
 Wins:${score.wins},Losses:${score.losses},Ties:${score.ties}`);
