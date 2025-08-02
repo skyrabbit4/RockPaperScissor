@@ -1,34 +1,120 @@
-body {
-    background-color: #191919;
-    color: white;
+:root {
+    --bg: #191919;
+    --fg: #fff;
+    --accent: #ffd700;
+    --btn-size: 120px;
+    --btn-hover-scale: 1.1;
+    --btn-active-scale: 0.9;
+    --transition-dur: 0.2s;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
     font-family: Arial, sans-serif;
     text-align: center;
-    padding-top: 50px;
   }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+  }
+  
+  /* wrap buttons for clean layout */
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;          
+    margin: 2rem auto;  
+  }
+  
   .move-button {
-    background: transparent;
-    border: 3px solid white;
-    width: 120px;
-    height: 120px;
+    width: var(--btn-size);
+    height: var(--btn-size);
+    border: 3px solid var(--fg);
     border-radius: 50%;
-    margin: 0 10px;
+    background: transparent;
     cursor: pointer;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    transition:
+      transform var(--transition-dur) ease,
+      box-shadow var(--transition-dur) ease;
   }
+  
+  .move-button:hover {
+    transform: scale(var(--btn-hover-scale));
+    box-shadow: 0 0 0 6px rgba(255,255,255,0.2);
+  }
+  
+  .move-button:active {
+    transform: scale(var(--btn-active-scale));
+  }
+  
+  .move-button:focus {
+    outline: none;
+  }
+  
   .move-icon {
     height: 50px;
   }
-  .result {
-    font-size: 25px;
+  
+  /* result text with color cues */
+  .js-result {
+    font-size: 1.5rem;
     font-weight: bold;
-    margin-top: 30px;
+    margin-bottom: 1rem;
+    transition: color var(--transition-dur) ease;
   }
-  .score {
-    margin-top: 20px;
+  .js-result.you-win  { color: #4caf50; } 
+  .js-result.you-lose { color: #f44336; } 
+  .js-result.tie      { color: #bbbbbb; } 
+  
+  /* moves display as flex, center-aligned */
+  .js-moves {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
   }
+  
+  /* score styling */
+  .js-score {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* reset button */
   .reset-score-button {
-    background-color: white;
+    background: var(--fg);
+    color: var(--bg);
     border: none;
-    padding: 8px 15px;
-    margin-top: 20px;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
     cursor: pointer;
+    transition: background var(--transition-dur) ease;
   }
+  .reset-score-button:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  
+  /* responsive tweaks */
+  @media (max-width: 600px) {
+    :root { --btn-size: 80px; }
+    h1 { font-size: 2rem; }
+  }
+  .js-result.you-win  { color: #4caf50; }
+  .js-result.you-lose { color: #f44336; }
+  .js-result.tie      { color: #bbbbbb; }
+    
