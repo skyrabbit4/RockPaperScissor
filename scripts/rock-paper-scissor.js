@@ -70,3 +70,20 @@ function resetScore() {
   document.querySelector('.js-result').classList.remove('you-win','you-lose','tie');
   document.querySelector('.js-moves').textContent = '';
 }
+let isAutoPlay = false;
+let intervalId;
+function autoPlay() {
+  if(!isAutoPlay) {
+    intervalId= setInterval(function(){
+        const playerMove = pickComputerMove();
+        playGame(playerMove);
+        },0.00000000000000000000001);
+        isAutoPlay=true;
+  }else{
+    clearInterval(intervalId);
+    isAutoPlay = false;
+    
+  }
+
+}
+
