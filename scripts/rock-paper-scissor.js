@@ -72,9 +72,24 @@ function resetScore() {
 }
 let isAutoPlay = false;
 let intervalId;
+/*
+const autoPlay=()=>{
+    if(!isAutoPlay) {
+        intervalId= setInterval(()=>{
+        const playerMove = pickComputerMove();
+        playGame(playerMove);
+        },1000);
+        isAutoPlay=true;
+    }else{
+        clearInterval(intervalId);
+        isAutoPlay = false;
+        
+    }//using arrow function
+}*/
+
 function autoPlay() {
   if(!isAutoPlay) {
-    intervalId= setInterval(function(){
+    intervalId= setInterval(()=>{
         const playerMove = pickComputerMove();
         playGame(playerMove);
         },0.00000000000000000000001);
