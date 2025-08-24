@@ -4,6 +4,15 @@ let score = JSON.parse(localStorage.getItem('score')) || {
   losses: 0,
   ties: 0
 };
+
+// Cache DOM elements for better performance
+const elements = {
+  result: document.querySelector('.js-result'),
+  moves: document.querySelector('.js-moves'),
+  score: document.querySelector('.js-score'),
+  autoplayButton: document.querySelector('.js-autoplay-button')
+};
+
 updateScoreElement();
 
 //used event listeners instead of inline event handlers
@@ -13,11 +22,34 @@ document.querySelector('.js-paper-button').addEventListener('click',()=>{playGam
 
 document.querySelector('.js-scissors-button').addEventListener('click',()=>{playGame('scissors')});
 
+document.querySelector('.js-reset-button').addEventListener('click', resetScore);
+
+document.querySelector('.js-autoplay-button').addEventListener('click', autoPlay);
+
 
 document.body.addEventListener('keydown',(event)=>{
-  if(event.key==='r') playGame('rock');
-  else if(event.key==='p') playGame('rock')
-    else if(event.key==='s') playGame('scissors')
+  if(event.key==='r') {
+    playGame('rock');
+    event.preventDefault();
+  }
+  else if(event.key==='p') {
+    playGame('paper');
+    event.preventDefault();
+  }
+  else if(event.key==='s') {
+    playGame('scissors');
+    event.preventDefault();
+  }
+  else if(event.key === ' ' || event.key === 'Spacebar') {
+    autoPlay();
+    event.preventDefault();
+  }
+  else if(event.key === 'Escape') {
+    if (isAutoPlay) {
+      autoPlay();
+    }
+    event.preventDefault();
+  }
 });
 function playGame(playerMove) {
   const computerMove = pickComputerMove();
@@ -50,15 +82,14 @@ function playGame(playerMove) {
   updateScoreElement();
 
   // update result text + apply color class
-  const resultEl = document.querySelector('.js-result');
-  resultEl.textContent = result;
-  resultEl.classList.remove('you-win', 'you-lose', 'tie');
-  if (result === 'You Win')   resultEl.classList.add('you-win');
-  if (result === 'You Lose')  resultEl.classList.add('you-lose');
-  if (result === 'Tie')       resultEl.classList.add('tie');
+  elements.result.textContent = result;
+  elements.result.classList.remove('you-win', 'you-lose', 'tie');
+  if (result === 'You Win')   elements.result.classList.add('you-win');
+  if (result === 'You Lose')  elements.result.classList.add('you-lose');
+  if (result === 'Tie')       elements.result.classList.add('tie');
 
   // show the two move icons
-  document.querySelector('.js-moves').innerHTML = `
+  elements.moves.innerHTML = `
     You <img src="images/${playerMove}-emoji.png" class="move-icon" alt="${playerMove}">
     <img src="images/${computerMove}-emoji.png" class="move-icon" alt="${computerMove}"> Computer
   `;
@@ -71,47 +102,50 @@ function pickComputerMove() {
 }
 
 function updateScoreElement() {
-  document.querySelector('.js-score').textContent =
-    `Wins: ${score.wins}  Losses: ${score.losses}  Ties: ${score.ties}`;
+  const totalGames = score.wins + score.losses + score.ties;
+  const winPercentage = totalGames > 0 ? Math.round((score.wins / totalGames) * 100) : 0;
+  
+  elements.score.innerHTML = `
+    Wins: ${score.wins} | Losses: ${score.losses} | Ties: ${score.ties}<br>
+    <small>Games: ${totalGames} | Win Rate: ${winPercentage}%</small>
+  `;
 }
 
 function resetScore() {
-  score = { wins: 0, losses: 0, ties: 0 };
-  localStorage.removeItem('score');
-  updateScoreElement();
-  document.querySelector('.js-result').textContent = '';
-  document.querySelector('.js-result').classList.remove('you-win','you-lose','tie');
-  document.querySelector('.js-moves').textContent = '';
+  if (confirm('Are you sure you want to reset your score?')) {
+    score = { wins: 0, losses: 0, ties: 0 };
+    localStorage.removeItem('score');
+    updateScoreElement();
+    elements.result.textContent = '';
+    elements.result.classList.remove('you-win','you-lose','tie');
+    elements.moves.textContent = '';
+  }
 }
 let isAutoPlay = false;
 let intervalId;
-/*
-const autoPlay=()=>{
-    if(!isAutoPlay) {
-        intervalId= setInterval(()=>{
-        const playerMove = pickComputerMove();
-        playGame(playerMove);
-        },1000);
-        isAutoPlay=true;
-    }else{
-        clearInterval(intervalId);
-        isAutoPlay = false;
-        
-    }//using arrow function
-}*/
 
 function autoPlay() {
   if(!isAutoPlay) {
     intervalId= setInterval(()=>{
         const playerMove = pickComputerMove();
         playGame(playerMove);
-        },0.00000000000000000000001);
+        },1000);
         isAutoPlay=true;
+        updateAutoplayButton();
   }else{
     clearInterval(intervalId);
     isAutoPlay = false;
-    
+    updateAutoplayButton();
   }
+}
 
+function updateAutoplayButton() {
+  if (isAutoPlay) {
+    elements.autoplayButton.textContent = 'Stop Autoplay';
+    elements.autoplayButton.style.background = '#f44336';
+  } else {
+    elements.autoplayButton.textContent = 'Autoplay';
+    elements.autoplayButton.style.background = '';
+  }
 }
 

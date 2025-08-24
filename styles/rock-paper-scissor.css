@@ -93,6 +93,11 @@
     margin-bottom: 2rem;
   }
   
+  .js-score small {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
   /* reset button */
   .reset-score-button {
     background: var(--fg);
@@ -109,12 +114,52 @@
     color: var(--bg);
   }
   
+  /* help section */
+  .help-section {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+  }
+  
+  .help-section details {
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  
+  .help-section summary {
+    cursor: pointer;
+    text-align: center;
+    padding: 0.5rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .help-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .help-section li {
+    padding: 0.25rem 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .help-section kbd {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  
   /* responsive tweaks */
   @media (max-width: 600px) {
     :root { --btn-size: 80px; }
     h1 { font-size: 2rem; }
   }
-  .js-result.you-win  { color: #4caf50; }
-  .js-result.you-lose { color: #f44336; }
-  .js-result.tie      { color: #bbbbbb; }
     
