@@ -114,7 +114,4 @@
     :root { --btn-size: 80px; }
     h1 { font-size: 2rem; }
   }
-  .js-result.you-win  { color: #4caf50; }
-  .js-result.you-lose { color: #f44336; }
-  .js-result.tie      { color: #bbbbbb; }
     
