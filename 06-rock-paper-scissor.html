@@ -9,28 +9,41 @@
 
   <h1>Rock Paper Scissors</h1>
 <div class="buttons">
-  <button class="move-button js-rock-button">
+  <button class="move-button js-rock-button" aria-label="Play Rock">
     <img src="images/rock-emoji.png" class="move-icon" alt="Rock">
   </button>
 
-  <button class="move-button js-paper-button">
+  <button class="move-button js-paper-button" aria-label="Play Paper">
     <img src="images/paper-emoji.png" class="move-icon" alt="Paper">
   </button>
 
-  <button  class="move-button js-scissors-button">
+  <button class="move-button js-scissors-button" aria-label="Play Scissors">
     <img src="images/scissors-emoji.png" class="move-icon" alt="Scissors">
   </button>
 </div>
 
-  <p class="result js-result"></p>
-  <p class="js-moves"></p>
-  <p class="score js-score"></p>
+  <p class="result js-result" aria-live="polite" aria-label="Game result"></p>
+  <p class="js-moves" aria-live="polite" aria-label="Moves played"></p>
+  <p class="score js-score" aria-label="Game statistics"></p>
 
   <button class="reset-score-button js-reset-button">
     Reset Score
   </button>
 
   <button class="reset-score-button js-autoplay-button">Autoplay</button>
+
+  <div class="help-section">
+    <details>
+      <summary>Keyboard Shortcuts</summary>
+      <ul>
+        <li><kbd>R</kbd> - Play Rock</li>
+        <li><kbd>P</kbd> - Play Paper</li>
+        <li><kbd>S</kbd> - Play Scissors</li>
+        <li><kbd>Space</kbd> - Toggle Autoplay</li>
+        <li><kbd>Esc</kbd> - Stop Autoplay</li>
+      </ul>
+    </details>
+  </div>
 
   <script src="scripts/rock-paper-scissor.js">
   </script>
